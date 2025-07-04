@@ -1,7 +1,9 @@
+import { Button } from "./components/ui/button";
+
 const App = () => {
   return (
-    <div>
-      <h1>Library Management System</h1>
+    <div className="flex items-center justify-center h-screen">
+      <Button>Click Me!</Button>
     </div>
   );
 };
