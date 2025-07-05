@@ -63,7 +63,7 @@ export const baseApi = createApi({
         },
         body: borrow,
       }),
-      invalidatesTags: ["summary"],
+      invalidatesTags: ["summary", "books"],
     }),
   }),
 });

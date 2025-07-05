@@ -42,8 +42,8 @@ export const editFormSchema = z.object({
       message: "Please select a valid genre.",
     },
   ),
-  copies: z.number().min(1, {
-    message: "Copies must be at least 1.",
+  copies: z.number().min(0, {
+    message: "Copies must be at least 0.",
   }),
   description: z
     .string()
