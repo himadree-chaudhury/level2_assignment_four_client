@@ -9,9 +9,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetAllBooksQuery } from "@/redux/api/baseApi";
+import { Link } from "react-router";
 
 const AllBooks = () => {
-  const { data, error, isLoading } = useGetAllBooksQuery(undefined);
+  const { data, isError, isLoading } = useGetAllBooksQuery(undefined);
 
   // Define the Book interface to match the structure of the book data
   interface Book {
@@ -28,14 +29,18 @@ const AllBooks = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  if (error) {
-    return <div>Error...</div>;
+  if (isError) {
+    return <div>{data.message}</div>;
   }
 
   console.log(data);
   return (
     <div>
-      AllBooks
+      <h1 className="text-2xl font-bold">All Books</h1>
+      <p className="mt-4">Here you can view all the books in the library.</p>
+      <div className="flex justify-end">
+        <Button className="mt-4">Add New Book</Button>
+      </div>
       <div className="mt-8">
         <Table>
           <TableCaption>A list of all books.</TableCaption>
@@ -53,7 +58,11 @@ const AllBooks = () => {
           <TableBody>
             {allBooks.map((book) => (
               <TableRow key={book._id}>
-                <TableCell className="font-medium">{book.title}</TableCell>
+                <TableCell className="font-medium">
+                  <Link to={`/books/${book._id}`} className="hover:underline">
+                    {book.title}
+                  </Link>
+                </TableCell>
                 <TableCell>{book.author}</TableCell>
                 <TableCell>{book.genre}</TableCell>
                 <TableCell>{book.isbn}</TableCell>

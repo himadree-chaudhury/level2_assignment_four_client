@@ -6,7 +6,7 @@ const RootLayout = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
-      <main className="flex-grow max-w-screen-2xl mx-auto">
+      <main className="mx-auto max-w-screen-2xl flex-grow py-8">
         <Outlet />
       </main>
       <Footer />
