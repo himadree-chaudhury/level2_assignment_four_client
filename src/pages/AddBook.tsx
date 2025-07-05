@@ -24,38 +24,13 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-
-
-// * Define the form schema using Zod
-const formSchema = z.object({
-  title: z.string().min(2, {
-    message: "Title must be at least 2 characters.",
-  }),
-  author: z.string().min(2, {
-    message: "Author must be at least 2 characters.",
-  }),
-  genre: z.enum(
-    ["FICTION", "NON_FICTION", "MYSTERY", "HISTORY", "BIOGRAPHY", "FANTASY"],
-    {
-      message: "Please select a valid genre.",
-    },
-  ),
-  isbn: z.string().min(10, {
-    message: "ISBN must be at least 10 characters.",
-  }),
-  copies: z.number().min(1, {
-    message: "Copies must be at least 1.",
-  }),
-  available: z.boolean(),
-  description: z
-    .string()
-    .max(50, {
-      message: "Description must be at most 50 characters.",
-    })
-    .optional(),
-});
+import { useAddABookMutation } from "@/redux/api/baseApi";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import { formSchema } from "@/lib/form-validation";
 
 const AddBook = () => {
+  const navigate = useNavigate();
   // * Define the form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,15 +40,34 @@ const AddBook = () => {
       genre: "FICTION",
       isbn: "",
       copies: 1,
-      available: false,
+      available: true,
       description: "",
     },
   });
 
-  // * Submit handler.
+  // * Submit handler
+  const [addABook, { data, isLoading, isError }] = useAddABookMutation();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    
-      console.log(values);
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+    if (isError) {
+      return <div>{data?.message}</div>;
+    }
+
+    // * Call the addABook mutation with the form values
+    addABook(values)
+      .unwrap()
+      .then(() => {
+        toast("Book added successfully");
+        navigate("/books");
+      })
+      .catch((error) => {
+        toast("Error adding book:", error?.message);
+      });
+
+    console.log(values);
   }
 
   return (

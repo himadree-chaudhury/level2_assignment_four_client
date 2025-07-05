@@ -39,7 +39,7 @@ const BookDetails = () => {
         <span className="font-semibold">{bookDetails.title}</span>.
       </p>
       <div className="mt-8">
-        <h2 className="text-xl font-semibold">Title: {bookDetails.title}</h2>
+        <h2 className="text-xl font-semibold capitalize">Title: {bookDetails.title}</h2>
         <p>
           <strong>Author:</strong> {bookDetails.author}
         </p>
@@ -49,15 +49,16 @@ const BookDetails = () => {
         <p>
           <strong>ISBN:</strong> {bookDetails.isbn}
         </p>
-        <p>
-          <strong>Description:</strong>{" "}
-          {bookDetails.description || "No description available."}
-        </p>
+
         <p>
           <strong>Copies:</strong> {bookDetails.copies}
         </p>
         <p>
           <strong>Available:</strong> {bookDetails.available ? "Yes" : "No"}
+        </p>
+        <p>
+          <strong>Description:</strong>{" "}
+          {bookDetails.description || "No description available."}
         </p>
       </div>
     </div>
