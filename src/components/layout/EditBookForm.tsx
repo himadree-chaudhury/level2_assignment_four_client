@@ -48,7 +48,6 @@ interface Book {
 }
 
 const EditBookForm = ({ book }: { book: Book }) => {
-    console.log(book);
   // * Define the form
   const form = useForm<z.infer<typeof editFormSchema>>({
     resolver: zodResolver(editFormSchema),

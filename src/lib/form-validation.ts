@@ -52,3 +52,15 @@ export const editFormSchema = z.object({
     })
     .optional(),
 });
+
+export const borrowFormSchema = z.object({
+  book: z.string().min(1, {
+    message: "Please select a book to borrow.",
+  }),
+    quantity: z.number().min(1, {
+        message: "Quantity must be at least 1.",
+    }),
+  dueDate: z.date({
+    message: "Please select a valid due date.",
+  }),
+});

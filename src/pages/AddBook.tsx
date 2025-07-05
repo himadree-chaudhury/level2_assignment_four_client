@@ -66,8 +66,6 @@ const AddBook = () => {
       .catch((error) => {
         toast("Error adding book:", error?.message);
       });
-
-    console.log(values);
   }
 
   return (

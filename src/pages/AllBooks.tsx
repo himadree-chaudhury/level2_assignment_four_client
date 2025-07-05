@@ -33,17 +33,23 @@ import {
 } from "@/redux/api/baseApi";
 import { Link } from "react-router";
 import EditBookForm from "@/components/layout/EditBookForm";
+import BorrowBookForm from "@/components/layout/BorrowBookForm";
 
 const AllBooks = () => {
   const { data, isError, isLoading } = useGetAllBooksQuery(undefined);
-  
 
   // * Define the Book interface to match the structure of the book data
   interface Book {
     _id: string;
     title: string;
     author: string;
-    genre: "FICTION" | "NON_FICTION" | "MYSTERY" | "HISTORY" | "BIOGRAPHY" | "FANTASY";
+    genre:
+      | "FICTION"
+      | "NON_FICTION"
+      | "MYSTERY"
+      | "HISTORY"
+      | "BIOGRAPHY"
+      | "FANTASY";
     isbn: string;
     copies: number;
     available: boolean;
@@ -112,7 +118,22 @@ const AllBooks = () => {
                   {book.available ? "Available" : "Unavailable"}
                 </TableCell>
                 <TableCell className="flex gap-1 text-right">
-                  <Button>Borrow</Button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button>Borrow</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Borrow Book</DialogTitle>
+                        <DialogDescription>
+                          Here you can borrow the book{" "}
+                          <span className="font-semibold">{book.title}</span>.
+                          Please confirm the details before proceeding.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <BorrowBookForm book={book._id} />
+                    </DialogContent>
+                  </Dialog>
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button variant="outline">Edit</Button>
