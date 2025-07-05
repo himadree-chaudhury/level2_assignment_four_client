@@ -1,9 +1,7 @@
-import { useGetAllBooksQuery } from "@/redux/api/baseApi";
+
 import logo from "@/assets/logo.png";
 
 const Home = () => {
-  const { data, error, isLoading } = useGetAllBooksQuery(undefined);
-  console.log(data?.data, error, isLoading);
   return (
       <div className="flex flex-col items-center justify-center">
           <img src={logo} alt="Library Logo" className="mx-auto mt-4" />
